@@ -1,4 +1,4 @@
-description: Builds the Android app at the given path with the given build types. This should be run only after installing dependencies. 
+description: Builds the Android app at the given path with the given build types. This should be run only after installing dependencies.
 
 parameters:
   project_path:
@@ -59,7 +59,8 @@ steps:
 
   - run:
       name: Build Android APK
-      command: "cd <<parameters.project_path>> && chmod +x gradlew && ./gradlew --build-cache --max-workers 2 --continue assemble<<parameters.build_type>> assembleAndroidTest -DtestBuildType=<<parameters.build_type>> --stacktrace"
+      working_directory: <<parameters.project_path>>
+      command: "chmod +x gradlew && ./gradlew --build-cache --max-workers 2 --continue assemble<<parameters.build_type>> assembleAndroidTest -DtestBuildType=<<parameters.build_type>> --stacktrace"
 
   - run:
       name: Collecting Gradle Build caches for saving
